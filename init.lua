@@ -26,18 +26,15 @@ require("lazy").setup({
     end
   }
 })
-require'nvim-treesitter.configs'.setup {
-  ensure_installed = { "c", "cpp", "json" }, -- you can also use "all" or add more languages
+require'nvim-treesitter.configs'.setup({
+  ensure_installed = { "c", "cpp", "json", "html", "css", "php" }, -- you can also use "all" or add more languages
   highlight = {
-    enable = true,              -- false will disable the whole extension
+    enable = true,
     additional_vim_regex_highlighting = false,
   },
-}
-vim.api.nvim_create_autocmd({ "BufRead", "BufNewFile" }, {
-  pattern = "*.h",
-  callback = function()
-    vim.bo.filetype = "c"
-  end,
+  indent = {
+      enable = true
+  }
 })
 vim.api.nvim_set_hl(0, 'LineNrAbove', { fg='#51B3EC', bold=true })
 vim.api.nvim_set_hl(0, 'LineNr', { fg='white', bold=true })
@@ -56,4 +53,30 @@ vim.opt.relativenumber=true
 vim.opt.number=true
 vim.cmd([[autocmd TermOpen * setlocal number relativenumber]])
 vim.cmd([[autocmd BufNewFile,BufRead,BufWinEnter * set formatoptions=jl]])
+
+vim.api.nvim_create_autocmd({ "BufRead", "BufNewFile" }, {
+  pattern = "*.h",
+  callback = function()
+    vim.bo.filetype = "c"
+  end,
+})
+vim.api.nvim_create_autocmd({ "BufRead", "BufNewFile" }, {
+  pattern = {"*.html", "*.php"},
+  callback = function()
+    vim.bo.tabstop=2
+    vim.bo.softtabstop=2
+    vim.bo.shiftwidth=2
+  end,
+})
+
+--vim.filetype.add({
+--    extension = {
+--        html = function(path, bufnr)
+--            vim.opt.tabstop=2
+--            vim.opt.softtabstop=2
+--            vim.opt.shiftwidth=2
+--        end
+--    }
+--})
 --vim.cmd("syntax off")
+
