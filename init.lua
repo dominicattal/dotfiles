@@ -53,6 +53,7 @@ vim.opt.relativenumber=true
 vim.opt.number=true
 vim.cmd([[autocmd TermOpen * setlocal number relativenumber]])
 vim.cmd([[autocmd BufNewFile,BufRead,BufWinEnter * set formatoptions=jl]])
+vim.cmd('packadd termdebug')
 
 vim.api.nvim_create_autocmd({ "BufRead", "BufNewFile" }, {
   pattern = "*.h",
