@@ -17,6 +17,13 @@ require("lazy").setup({
   {"nvim-treesitter/nvim-treesitter", branch = 'master', lazy = false, build = ":TSUpdate"},
   {
     "folke/tokyonight.nvim",
+    --"ptdewey/monalisa-nvim",
+    --"HoNamDuong/hybrid.nvim",
+    --"ptdewey/darkearth-nvim",
+		--"jpwol/thorn.nvim",
+		--"taigrr/cyberpunk.nvim",
+		--"54L1M/Oshen.nvim",
+    --"judaew/ronny.nvim",
     lazy = false,
     priority = 1000,
     config = function()
@@ -24,6 +31,21 @@ require("lazy").setup({
       vim.api.nvim_set_hl(0, "StatusLine", { fg = "#ffffff", bg = "#666699", bold = true })
       vim.api.nvim_set_hl(0, "StatusLineNC", { fg = "#cccccc", bg = "#2a2a2a" })
     end
+  },
+  {
+    "nvim-telescope/telescope.nvim",
+    dependencies = {
+      "nvim-lua/plenary.nvim",
+    },
+  },
+  {
+    "nvim-tree/nvim-tree.lua",
+    dependencies = {
+      "nvim-tree/nvim-web-devicons",
+    },
+    config = function()
+      require("nvim-tree").setup()
+    end,
   }
 })
 require'nvim-treesitter.configs'.setup({
@@ -36,6 +58,15 @@ require'nvim-treesitter.configs'.setup({
       enable = true
   }
 })
+
+vim.g.mapleader = " "
+vim.g.maplocalleader = " "
+vim.keymap.set("n", "<leader>e", ":NvimTreeToggle<CR>")
+
+local builtin = require("telescope.builtin")
+vim.keymap.set("n", "<leader>fg", builtin.live_grep)
+vim.keymap.set("n", "<leader>fb", builtin.buffers)
+
 vim.api.nvim_set_hl(0, 'LineNrAbove', { fg='#51B3EC', bold=true })
 vim.api.nvim_set_hl(0, 'LineNr', { fg='white', bold=true })
 vim.api.nvim_set_hl(0, 'LineNrBelow', { fg='#FB508F', bold=true })
@@ -62,22 +93,10 @@ vim.api.nvim_create_autocmd({ "BufRead", "BufNewFile" }, {
   end,
 })
 vim.api.nvim_create_autocmd({ "BufRead", "BufNewFile" }, {
-  pattern = {"*.html", "*.php"},
+  pattern = {"*.html", "*.php", "*.lua"},
   callback = function()
     vim.bo.tabstop=2
     vim.bo.softtabstop=2
     vim.bo.shiftwidth=2
   end,
 })
-
---vim.filetype.add({
---    extension = {
---        html = function(path, bufnr)
---            vim.opt.tabstop=2
---            vim.opt.softtabstop=2
---            vim.opt.shiftwidth=2
---        end
---    }
---})
---vim.cmd("syntax off")
-
