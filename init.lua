@@ -44,7 +44,10 @@ require("lazy").setup({
       "nvim-tree/nvim-web-devicons",
     },
     config = function()
-      require("nvim-tree").setup()
+      require("nvim-tree").setup({
+        disable_netrw = true,
+        hijack_netrw = true
+      })
     end,
   }
 })
@@ -53,9 +56,6 @@ require'nvim-treesitter.configs'.setup({
   highlight = {
     enable = true,
     additional_vim_regex_highlighting = false,
-  },
-  indent = {
-      enable = true
   }
 })
 
