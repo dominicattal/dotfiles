@@ -27,7 +27,7 @@ require("lazy").setup({
     lazy = false,
     priority = 1000,
     config = function()
-      vim.cmd("colorscheme tokyonight")
+      vim.cmd("colorscheme tokyonight-night")
       vim.api.nvim_set_hl(0, "StatusLine", { fg = "#ffffff", bg = "#666699", bold = true })
       vim.api.nvim_set_hl(0, "StatusLineNC", { fg = "#cccccc", bg = "#2a2a2a" })
     end
@@ -90,6 +90,12 @@ vim.api.nvim_create_autocmd({ "BufRead", "BufNewFile" }, {
   pattern = "*.h",
   callback = function()
     vim.bo.filetype = "c"
+  end,
+})
+vim.api.nvim_create_autocmd({ "BufRead", "BufNewFile" }, {
+  pattern = "*.cpp",
+  callback = function()
+    vim.opt.cinkeys:remove(":")
   end,
 })
 vim.api.nvim_create_autocmd({ "BufRead", "BufNewFile" }, {
